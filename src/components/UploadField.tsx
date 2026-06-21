@@ -306,9 +306,16 @@ const UploadField: React.FC<UploadFieldProps> = ({
 
             {error && <p className="error">{error.message}</p>}
 
-            <div className="display-thumnails" >
+            <div className="display-thumnails">
               {Object.values(inFlight).map((entry) => (
-                <div key={entry.id} className="upload-item">
+                <div
+                  key={entry.id}
+                  className="upload-item"
+                  style={{
+                    width: `${avtarSize}px`,
+                    height: `calc(${avtarSize}px + 20px)`,
+                  }}
+                >
                   <div
                     className="upload-card upload-card--pending"
                     style={{ width: avtarSize, height: avtarSize }}
@@ -340,14 +347,21 @@ const UploadField: React.FC<UploadFieldProps> = ({
                     </div>
                   </div>
 
-                  <span className="upload-item-name" title={entry.name}>
+                  <div
+                    className="upload-item-name text-break"
+                    title={entry.name}
+                  >
                     {entry.name}
-                  </span>
+                  </div>
                 </div>
               ))}
 
               {value.map((file: UploadedFile, index: number) => (
-                <div key={file.url ?? index} className="upload-item">
+                <div
+                  key={file.url ?? index}
+                  className="upload-item"
+                  style={{ width: `${avtarSize}px` }}
+                >
                   <div
                     className="upload-card"
                     style={{ width: avtarSize, height: avtarSize }}
@@ -384,9 +398,12 @@ const UploadField: React.FC<UploadFieldProps> = ({
                     </div>
                   </div>
 
-                  <span className="upload-item-name" title={file.name}>
+                  <div
+                    className="upload-item-name text-break"
+                    title={file.name}
+                  >
                     {file.name}
-                  </span>
+                  </div>
                 </div>
               ))}
             </div>

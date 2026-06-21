@@ -246,6 +246,7 @@
 
 .display-thumnails {
   display: flex;
+
   gap: 10px;
   flex-wrap: wrap;
 }
@@ -255,16 +256,12 @@
   flex-direction: column;
   gap: 10px;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .upload-item-name {
-  font-size: 13px;
+  font-size: 12px;
   color: #333;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex: 1;
-  min-width: 0;
 }
 
 .upload-grid {

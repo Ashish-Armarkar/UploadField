@@ -5,21 +5,34 @@ import UploadField from "./components/UploadField";
 import { ToastContainer } from "react-toastify";
 import Buttons from "./components/Buttons";
 import { useCallback, useState } from "react";
+import useToast from "./Hooks/useToast";
 
 function App() {
   const [isLoading, setIsloading] = useState(false);
   const methods = useForm();
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
+  const toast = useToast();
   const callSubmit = useCallback((data: any) => {
+    setIsloading(true);
     console.log(data);
+    toast({ message: "Data Submitted Successfully", status: "success" });
+    reset();
   }, []);
   return (
     <>
       <ToastContainer position="top-right" autoClose={2000} />
       <FormProvider {...methods}>
         <form action="" onSubmit={handleSubmit(callSubmit)}>
-          <div className="row d-flex justify-content-center align-items-center gap-3">
-            <div className="col-3">
+          <div
+            className="row d-flex justify-content-center  gap-3"
+            style={{
+              height: "calc(100vh)",
+            }}
+          >
+            <div
+              className="w-50 d-flex align-items-center"
+              style={{ height: "90%" }}
+            >
               <UploadField
                 name="upload"
                 label="Uplod Field"
@@ -28,7 +41,7 @@ function App() {
                 parentLoading={(loading) => setIsloading(loading)}
               />
             </div>
-            <div className="w-100 d-flex justify-content-center align-items-center">
+            <div className="w-100 d-flex justify-content-end p-4">
               <Buttons
                 type="submit"
                 label="Submit"
