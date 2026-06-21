@@ -43,7 +43,6 @@ function App() {
                 required
                 maxItems={Infinity}
                 parentLoading={(loading) => setIsloading(loading)}
-                avtarSize={80}
               />
             </div>
             <div className="w-100 d-flex justify-content-end p-4">
