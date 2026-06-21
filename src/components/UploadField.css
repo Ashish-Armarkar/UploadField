@@ -244,11 +244,17 @@
   color: #666;
 }
 
+.display-thumnails {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .upload-item {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 10px;
-  max-width: 280px;
+  flex-wrap: wrap;
 }
 
 .upload-item-name {

@@ -286,6 +286,66 @@ const UploadField: React.FC<UploadFieldProps> = ({
               onDragOver={handleDragOver}
               onDrop={handleDrop}
             >
+              {slotsRemaining > 0 && (
+                <label
+                  className={`upload-box${isDragActive ? " upload-box--drag-active" : ""}`}
+                >
+                  <input
+                    type="file"
+                    hidden
+                    multiple={slotsRemaining > 1}
+                    onChange={(e) => {
+                      handleFilesSelected(e.target.files);
+                      e.target.value = "";
+                    }}
+                  />
+                  <span>{isDragActive ? "Drop to upload" : "+ Upload"}</span>
+                </label>
+              )}
+            </div>
+
+            {error && <p className="error">{error.message}</p>}
+
+            <div className="display-thumnails" >
+              {Object.values(inFlight).map((entry) => (
+                <div key={entry.id} className="upload-item">
+                  <div
+                    className="upload-card upload-card--pending"
+                    style={{ width: avtarSize, height: avtarSize }}
+                  >
+                    <button
+                      type="button"
+                      className="cancel-btn"
+                      onClick={() => handleCancel(entry.id)}
+                      aria-label={`Cancel upload of ${entry.name}`}
+                      title="Cancel upload"
+                    >
+                      ✕
+                    </button>
+
+                    <div className="upload-progress-card">
+                      <FileThumbnail
+                        type={entry.type}
+                        url=""
+                        name={entry.name}
+                        size={avtarSize * 0.5}
+                      />
+                      <div className="progress-track">
+                        <div
+                          className="progress-fill"
+                          style={{ width: `${entry.progress}%` }}
+                        />
+                      </div>
+                      <p className="progress-label">{entry.progress}%</p>
+                    </div>
+                  </div>
+
+                  <span className="upload-item-name" title={entry.name}>
+                    {entry.name}
+                  </span>
+                </div>
+              ))}
+
               {value.map((file: UploadedFile, index: number) => (
                 <div key={file.url ?? index} className="upload-item">
                   <div
@@ -329,65 +389,7 @@ const UploadField: React.FC<UploadFieldProps> = ({
                   </span>
                 </div>
               ))}
-
-              {Object.values(inFlight).map((entry) => (
-                <div key={entry.id} className="upload-item">
-                  <div
-                    className="upload-card upload-card--pending"
-                    style={{ width: avtarSize, height: avtarSize }}
-                  >
-                    <button
-                      type="button"
-                      className="cancel-btn"
-                      onClick={() => handleCancel(entry.id)}
-                      aria-label={`Cancel upload of ${entry.name}`}
-                      title="Cancel upload"
-                    >
-                      ✕
-                    </button>
-
-                    <div className="upload-progress-card">
-                      <FileThumbnail
-                        type={entry.type}
-                        url=""
-                        name={entry.name}
-                        size={avtarSize * 0.5}
-                      />
-                      <div className="progress-track">
-                        <div
-                          className="progress-fill"
-                          style={{ width: `${entry.progress}%` }}
-                        />
-                      </div>
-                      <p className="progress-label">{entry.progress}%</p>
-                    </div>
-                  </div>
-
-                  <span className="upload-item-name" title={entry.name}>
-                    {entry.name}
-                  </span>
-                </div>
-              ))}
-
-              {slotsRemaining > 0 && (
-                <label
-                  className={`upload-box${isDragActive ? " upload-box--drag-active" : ""}`}
-                >
-                  <input
-                    type="file"
-                    hidden
-                    multiple={slotsRemaining > 1}
-                    onChange={(e) => {
-                      handleFilesSelected(e.target.files);
-                      e.target.value = "";
-                    }}
-                  />
-                  <span>{isDragActive ? "Drop to upload" : "+ Upload"}</span>
-                </label>
-              )}
             </div>
-
-            {error && <p className="error">{error.message}</p>}
 
             {preview && (
               <PreviewModal file={preview} onClose={() => setPreview(null)} />
