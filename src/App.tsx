@@ -15,7 +15,11 @@ function App() {
   const callSubmit = useCallback((data: any) => {
     setIsloading(true);
     console.log(data);
-    toast({ message: "Data Submitted Successfully", status: "success" });
+    toast({
+      message:
+        "Data submitted successfully! Please check the browser console to view the submitted data.",
+      status: "success",
+    });
     reset();
   }, []);
   return (
