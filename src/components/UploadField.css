@@ -94,6 +94,11 @@
   max-height: 90%;
 }
 
+.preview-modal iframe {
+  width: 90%;
+  height: 90%;
+}
+
 /* Overlay (background blur/dark) */
 .preview-overlay {
   position: fixed;
